@@ -5,136 +5,606 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K. Yashwanth Vignesh - Portfolio</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
         }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, #00ff88 0%, transparent 50%),
+                       radial-gradient(circle at 80% 20%, #0099ff 0%, transparent 50%),
+                       radial-gradient(circle at 40% 80%, #ff0099 0%, transparent 50%);
+            opacity: 0.1;
+            animation: gradientShift 8s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
         header {
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            color: white;
-            padding: 40px 20px;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 153, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+
+        .header-content {
+            z-index: 2;
+            padding: 40px;
         }
-        header p {
-            margin: 5px 0;
-        }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
-        }
-        section {
-            background: white;
-            padding: 20px;
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
             margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background: linear-gradient(45deg, #00ff88, #0099ff, #ff0099);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
         }
-        h2 {
-            border-bottom: 2px solid #0072ff;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-            color: #0072ff;
+
+        @keyframes glow {
+            from {
+                filter: brightness(1) drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
+            }
+            to {
+                filter: brightness(1.2) drop-shadow(0 0 30px rgba(0, 255, 136, 0.8));
+            }
         }
-        ul {
-            padding-left: 20px;
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: slideUp 1s ease-out 0.5s both;
         }
-        a {
-            color: #0072ff;
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 1s ease-out 1s both;
+        }
+
+        .contact-links a {
+            color: #ffffff;
             text-decoration: none;
+            padding: 12px 24px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .contact-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.4), transparent);
+            transition: left 0.5s;
         }
+
+        .contact-links a:hover::before {
+            left: 100%;
+        }
+
+        .contact-links a:hover {
+            border-color: #00ff88;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+            transform: translateY(-5px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff88, #0099ff, #ff0099);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        section:hover::before {
+            opacity: 1;
+        }
+
+        section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #00ff88;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff88, #0099ff);
+            transition: width 0.5s ease;
+        }
+
+        section:hover h2::after {
+            width: 100%;
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #00ff88, #0099ff);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        li:hover::before {
+            opacity: 1;
+        }
+
+        li:hover {
+            background: rgba(0, 255, 136, 0.05);
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.1);
+        }
+
+        /* Skills */
         .skills {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
+
         .skill-badge {
-            background: #0072ff;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 153, 255, 0.2));
+            color: #ffffff;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
+
+        .skill-badge::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .skill-badge:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.3);
+            border-color: #00ff88;
+        }
+
+        /* Project links */
+        a {
+            color: #00ff88;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff88, #0099ff);
+            transition: width 0.3s ease;
+        }
+
+        a:hover::after {
+            width: 100%;
+        }
+
+        a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+        }
+
+        /* Strong text styling */
+        strong, b {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #0099ff, #ff0099);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            section {
+                padding: 30px 20px;
+                margin-bottom: 40px;
+            }
+            
+            .skills {
+                justify-content: center;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
+        section:nth-child(4) { animation-delay: 0.8s; }
+        section:nth-child(5) { animation-delay: 1s; }
     </style>
 </head>
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
 
-<header>
-    <h1>K. Yashwanth Vignesh</h1>
-    <p>Electronics & Computer Engineering Student | Flutter x Gen-AI Developer</p>
-    <p>
-        <a href="mailto:yash.vignesh.k@gmail.com" style="color:white;">yash.vignesh.k@gmail.com</a> |
-        <a href="https://www.linkedin.com/in/yashwanth-vignesh-k/" style="color:white;">https://www.linkedin.com/in/yashwanth-vignesh-k/</a> |
-        <a href="https://github.com/Sssketchy" style="color:white;">https://github.com/Sssketchy</a>
-    </p>
-</header>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-<div class="container">
-    <section>
-        <h2>Education</h2>
-        <ul>
-            <li><b>B.Tech in Electronics and Computer Engineering</b> - VIT Chennai (2022 – 2026) | CGPA: 8.66</li>
-            <li>HSLC - Maharishi Vidya Mandir, Chennai (2021 – 2022) | 84.2%</li>
-            <li>SSLC - Velammal Vidhyashram, Chennai (2019 – 2020) | 92.6%</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Projects</h2>
-        <ul>
-            <li><b>AR Based Campus Navigator</b> – <a href="https://github.com/Sssketchy/VITCampusNavigatorAR">GitHub</a><br>
-                AR app for campus navigation using Unity, SLAM, and AI-based contextual humor to improve engagement.
-            </li>
-            <li><b>Mechanic Service Platform</b> – <a href="https://github.com/Sssketchy/Service_Genie">GitHub</a><br>
-                Cross-platform app in Flutter connecting customers with mechanics, with live location sharing.
-            </li>
-            <li><b>GEN-AI Based Learning Application</b> – <a href="https://github.com/NIVISH24/tea-backend">GitHub</a><br>
-                Web app using LLaMA model for personalized learning paths and automated content generation.
-            </li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Achievements</h2>
-        <ul>
-            <li><b>1st Place</b> - Glitchcon 2025 (AR Domain), VIT Chennai</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Technical Skills</h2>
-        <div class="skills">
-            <span class="skill-badge">Java</span>
-            <span class="skill-badge">Python</span>
-            <span class="skill-badge">C/C++</span>
-            <span class="skill-badge">SQL</span>
-            <span class="skill-badge">HTML/CSS</span>
-            <span class="skill-badge">Dart</span>
-            <span class="skill-badge">Unity</span>
-            <span class="skill-badge">Flutter</span>
-            <span class="skill-badge">Spring Boot</span>
-            <span class="skill-badge">Arduino</span>
+    <header>
+        <div class="header-content">
+            <h1>K. Yashwanth Vignesh</h1>
+            <p class="subtitle">Electronics & Computer Engineering Student | AR & AI Developer</p>
+            <div class="contact-links">
+                <a href="mailto:yash.vignesh.k@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/yashwanth-vignesh-k/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/Sssketchy" target="_blank">GitHub</a>
+            </div>
         </div>
-    </section>
+    </header>
 
-    <section>
-        <h2>Soft Skills</h2>
-        <ul>
-            <li>Communication (Active Listening, Empathy, Clarity)</li>
-            <li>Problem Solving (Creativity, Decision Making)</li>
-            <li>Adaptability, Organization, Discipline</li>
-        </ul>
-    </section>
-</div>
+    <div class="container">
+        <section>
+            <h2>Education</h2>
+            <ul>
+                <li><strong>B.Tech in Electronics and Computer Engineering</strong> - VIT Chennai (2022 – 2026) | CGPA: 8.66</li>
+                <li>HSLC - Maharishi Vidya Mandir, Chennai (2021 – 2022) | 84.2%</li>
+                <li>SSLC - Velammal Vidhyashram, Chennai (2019 – 2020) | 92.6%</li>
+            </ul>
+        </section>
 
+        <section>
+            <h2>Projects</h2>
+            <ul>
+                <li>
+                    <strong>AR Based Campus Navigator</strong> – <a href="https://github.com/Sssketchy/VITCampusNavigatorAR" target="_blank">GitHub</a><br>
+                    AR app for campus navigation using Unity, SLAM, and AI-based contextual humor to improve engagement.
+                </li>
+                <li>
+                    <strong>Mechanic Service Platform</strong> – <a href="https://github.com/Sssketchy/Service_Genie" target="_blank">GitHub</a><br>
+                    Cross-platform app in Flutter connecting customers with mechanics, with live location sharing.
+                </li>
+                <li>
+                    <strong>GEN-AI Based Learning Application</strong> – <a href="https://github.com/NIVISH24/tea-backend" target="_blank">GitHub</a><br>
+                    Web app using LLaMA model for personalized learning paths and automated content generation.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Achievements</h2>
+            <ul>
+                <li><strong>1st Place</strong> - Glitchcon 2025 (AR Domain), VIT Chennai</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Technical Skills</h2>
+            <div class="skills">
+                <span class="skill-badge">Java</span>
+                <span class="skill-badge">Python</span>
+                <span class="skill-badge">C/C++</span>
+                <span class="skill-badge">SQL</span>
+                <span class="skill-badge">HTML/CSS</span>
+                <span class="skill-badge">Dart</span>
+                <span class="skill-badge">Unity</span>
+                <span class="skill-badge">Flutter</span>
+                <span class="skill-badge">Spring Boot</span>
+                <span class="skill-badge">Arduino</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Soft Skills</h2>
+            <ul>
+                <li>Communication (Active Listening, Empathy, Clarity)</li>
+                <li>Problem Solving (Creativity, Decision Making)</li>
+                <li>Adaptability, Organization, Discipline</li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                
+                // Random colors
+                const colors = ['#00ff88', '#0099ff', '#ff0099'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Scroll progress indicator
+        function updateScrollProgress() {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        }
+
+        // Mouse move parallax effect
+        function handleMouseMove(e) {
+            const sections = document.querySelectorAll('section');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            sections.forEach((section, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
+                section.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Scroll progress
+            window.addEventListener('scroll', updateScrollProgress);
+            
+            // Mouse parallax (subtle effect)
+            document.addEventListener('mousemove', handleMouseMove);
+            
+            // Add intersection observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            });
+            
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Add click ripple effect to skill badges
+        document.querySelectorAll('.skill-badge').forEach(badge => {
+            badge.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                `;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
